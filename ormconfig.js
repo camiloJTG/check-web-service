@@ -8,11 +8,4 @@ module.exports = {
   synchronize: process.env.TYPEORM_SYNCHRONIZE,
   logging: false,
   entities: [process.env.TYPEORM_ENTITY],
-  migrations: ['src/migration/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
-  cli: {
-    entitiesDir: 'src/entity',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
-  },
 };
