@@ -72,7 +72,7 @@ export const updateTask = async (id: number, task: IUpdateTask) => {
     }
 
     // Update complete
-    if (task.isCompleted) {
+    if (task.isCompleted != null) {
       await taskRepository.save({
         id: id,
         isCompleted: task.isCompleted,

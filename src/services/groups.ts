@@ -65,6 +65,7 @@ export const updateGroup = async (id: number, group: IUpdateGroup) => {
     if (!searchId) return `The id ${id} not found`;
 
     if (group.name) {
+      console.log(1);
       await groupRepository.save({
         id: id,
         name: group.name,
@@ -72,7 +73,8 @@ export const updateGroup = async (id: number, group: IUpdateGroup) => {
       });
     }
 
-    if (group.isFeatured) {
+    if (group.isFeatured !== null) {
+      console.log(2);
       await groupRepository.save({
         id: id,
         isFeatured: group.isFeatured,
