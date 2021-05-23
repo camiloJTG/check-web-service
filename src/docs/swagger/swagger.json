@@ -11,7 +11,7 @@
       "description": "Url para soporte en entorno de desarrollo y qa"
     },
     {
-      "url": "https://localhost:3000/api/v1",
+      "url": "https://jtg-check-web-service.herokuapp.com/api",
       "description": "Url para soporte en entorno productivo"
     }
   ],
