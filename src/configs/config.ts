@@ -1,6 +1,6 @@
 export default {
   app: {
-    port: process.env.APP_PORT,
+    port: process.env.APP_PORT || '',
     dev: process.env.NODE_ENV !== 'production',
   },
   jwt: {
