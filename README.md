@@ -29,7 +29,7 @@ The .env.example file contains the model of the environment variables used in th
 The documentation can be found by clicking on the swagger link. In addition, inside the docs folder are the endpoints used in development.
 
 ```
- swagger: https://check-web-service.herokuapp.com/api/docs
+ swagger: https://jtg-check-web-service.herokuapp.com/api/docs
  postman: src/docs/postman/
 ```
 
