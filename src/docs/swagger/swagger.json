@@ -1,0 +1,1231 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Check",
+    "description": "Servicio web para el proyecto de 'check'",
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Url para soporte en entorno de desarrollo y qa"
+    },
+    {
+      "url": "https://localhost:3000/api/v1",
+      "description": "Url para soporte en entorno productivo"
+    }
+  ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "tags": ["account"],
+        "summary": "Obtener un token de acceso",
+        "description": "Servicio encargado de recibir un token de acceso por medio de un correo y contraseña válidos",
+        "requestBody": {
+          "description": "Datos necesarios para poder obtener el token",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retornar un token de acceso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["account"],
+        "summary": "Crear una cuenta de usuario",
+        "description": "Crear una cuenta de usuario para poder acceder a las funcinalidades del proyecto",
+        "requestBody": {
+          "description": "Datos necesarios para poder crear una cuenta",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["account"],
+        "summary": "Conseguir los datos de un único usuario",
+        "description": "Conseguir los datos de usuario por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["account"],
+        "summary": "Actualizar los datos de un usuario",
+        "description": "Actualizar los datos de un usuario por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "requestBody": {
+          "description": "Los datos del usuario que se desean actualizar",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos actualizados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "post": {
+        "tags": ["group"],
+        "summary": "Crear un grupo de tareas",
+        "description": "Crear un grupo que permite almacenar un listado de tareas",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "requestBody": {
+          "description": "Datos necesarios para poder crear un grupo",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{id}": {
+      "get": {
+        "tags": ["group"],
+        "summary": "Obtener un grupo de tareas",
+        "description": "Obtener un grupo en específico por id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un grupo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["group"],
+        "summary": "Actualizar los datos de un grupo",
+        "description": "Actualizar los datos de un grupo por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "requestBody": {
+          "description": "Los datos del grupo que se desean actualizar",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createGroup"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un grupo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos actualizados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["group"],
+        "summary": "Eliminar grupo",
+        "description": "Eliminar un grupo por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un grupo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación de eliminación de grupos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/user/{id}": {
+      "get": {
+        "tags": ["group"],
+        "summary": "Obtener todas las tareas de un usuario",
+        "description": "Obtener todas las tareas de un usuario en específico por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de un grupo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "post": {
+        "tags": ["task"],
+        "summary": "Crear una tarea",
+        "description": "Crear una tarea asociada a un grupo",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "requestBody": {
+          "description": "Datos necesarios para poder crear una tarea",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createTask"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": ["task"],
+        "summary": "Obtener una tarea",
+        "description": "Obtener una tarea en específico por id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de una tarea"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createTask"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["task"],
+        "summary": "Actualizar los datos de una tarea",
+        "description": "Actualizar los datos de una tarea por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "requestBody": {
+          "description": "Los datos del grupo que se desean actualizar",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTask"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de una tarea"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos actualizados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["task"],
+        "summary": "Eliminar una tarea",
+        "description": "Eliminar una tarea por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de una tarea"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación de eliminación de grupos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allResponses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/group/{id}": {
+      "get": {
+        "tags": ["task"],
+        "summary": "Obtener todas las tareas de un usuario",
+        "description": "Obtener todas las tareas de un usuario en específico por medio de un id",
+        "security": [
+          {
+            "BearerAuth": "account"
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "number"
+            },
+            "required": "true",
+            "description": "Id único que permite buscar los datos de una tarea"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retornar el objeto con los datos almacenados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createTask"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Respuestas asociadas a errores de ingreso de datos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "400"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errores asociados a problemas internos del servicio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": "500"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "createTask": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre de la tarea"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Marcar si una tarea está completa o no"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción de la tarea"
+          },
+          "groupId": {
+            "type": "number",
+            "description": "Id del grupo asociado"
+          }
+        }
+      },
+      "createUser": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "description": "Correo electrónico válido"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña válida"
+          }
+        }
+      },
+      "createGroup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre par ael grupo"
+          },
+          "isFeatured": {
+            "type": "boolean",
+            "description": "Marcar si es un grupo destacado o no"
+          },
+          "userId": {
+            "type": "number",
+            "description": "Id del usuario que creó el grupo"
+          }
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "description": "Correo electrónico válido"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña válida"
+          }
+        }
+      },
+      "allResponses": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean",
+            "description": "Dato boleano que arroja true o false dependiendo si existen errores"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "Código de estado de la solicitud"
+          },
+          "message": {
+            "type": "object",
+            "description": "El resultado de los servicios consultados"
+          }
+        }
+      }
+    }
+  },
+  "security": []
+}
