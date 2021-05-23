@@ -8,6 +8,8 @@
     "@types/express": "^4.17.11",
     "@types/morgan": "^1.9.2",
     "@types/node": "^8.0.29",
+    "@types/swagger-ui-express": "^4.1.2",
+    "@types/yamljs": "^0.2.31",
     "ts-node-dev": "^1.1.6",
     "typescript": "^3.3.3333"
   },
@@ -23,11 +25,12 @@
     "morgan": "^1.10.0",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.10",
-    "swagger-jsdoc": "*",
     "swagger-ui-express": "^4.1.6",
     "typeorm": "0.2.32"
   },
   "scripts": {
-    "dev": "ts-node-dev src/configs/index.ts"
+    "dev": "ts-node-dev src/configs/index.ts",
+    "start": "NODE_ENV=production&&node dist/configs/index.js",
+    "build": "tsc"
   }
 }
